@@ -10,7 +10,18 @@ const dashboardPage = async (req, res) => {
   }
 }
 
+const aboutPage = async (req, res) => {
+  try {
+    res.render("user/about")
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message: error.message,
+    })
+  }
+}
+
 
 module.exports = {
-  dashboardPage,
+  dashboardPage, 
+  aboutPage
 }

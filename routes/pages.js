@@ -5,6 +5,7 @@ const admin = require("../middleware/admin")
 
 // user pages
 router.get('/', userPageControllers.dashboardPage)
+router.get('/about', userPageControllers.aboutPage)
 
 // admin pages
 router.get('/login/admin', AdminPageControllers.loginAdminPage)
