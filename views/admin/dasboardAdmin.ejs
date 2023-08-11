@@ -1,0 +1,95 @@
+  <!-- ======= Header Section ======= -->
+  <%- include("../layouts/headerAdmin") -%>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <% if (firstLogin == true) { %>
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil Login',
+          timer: 1500,
+        })
+     </script>
+    <% }  else if (status == "success") { %>
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: "<%= message %>",
+          timer: 1500,
+        })
+     </script>
+  <% }  else if (status == "delete") { %>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: "<%= message %>",
+        timer: 1500,
+      })
+   </script>
+  <% } %> 
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Dasboard Admin</h1>
+
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <!-- Collapsable Card Example -->
+                        <div class="card shadow mb-4 border-left-warning">
+                          <!-- Card Header - Accordion -->
+                          <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                          <h6 class="m-0 font-weight-bold text-warning">Form Buat Dokumen</h6>
+                          </a>
+                          <!-- Card Content - Collapse -->
+                            <div class="collapse show" id="collapseCardExample">
+                                <div class="card-body">
+                                   <!-- Horizontal material form -->
+                                    Sebelum membuat dokumen, diharap memperhatikan aturan dibawah ini :
+                                    <li class="mb-2">Nama Dokumen merupakan singkatan.</li>
+                                    <li class="mb-2">Kepanjangan nama dokumen merupakan kepanjangan nama dokumen yang dibuat.</li>
+                                    <form action="/admin/upload/documents" method="POST">
+                                      <!-- Grid row -->
+                                      <div class="mb-2 form-group row">
+                                        <!-- Material input -->
+                                        <label for="inputText" class="col-sm-3 col-form-label">Nama Dokumen</label>
+                                        <div class="col-sm-10">
+                                          <div class="md-form mt-0">
+                                            <input type="text" name="name" class="form-control" id="inputText" placeholder="SOP">
+                                          </div>
+                                        </div>
+                                        <label for="inputText" class="col-sm-4 col-form-label">Kepanjangan Nama Dokumen</label>
+                                        <div class="col-sm-10">
+                                          <div class="md-form mt-0">
+                                            <input type="text" name="desc" class="form-control" id="inputText" placeholder="Standart Operating Procedur">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- Grid row -->
+          
+                                      <!-- Grid row -->
+                                      
+                                      <!-- Grid row -->
+          
+                                      <!-- Grid row -->
+                                      <div class="form-group row">
+                                        <div class="col-sm-10">
+                                          <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                                        </div>
+                                      </div>
+                                      <!-- Grid row -->
+                                    </form>
+          <!-- Horizontal material form -->
+                                    </div>
+                              </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+              <!-- ======= Header Section ======= -->
+               <%- include("../layouts/footerAdmin") -%>
