@@ -1,6 +1,6 @@
 const admin = (req, res, next) => {
   if (!req.session.userName) {
-    return res.redirect('/login/admin');
+    return res.redirect('/admin/login');
   }
   next();
 };

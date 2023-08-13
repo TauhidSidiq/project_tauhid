@@ -39,7 +39,7 @@ const login = async (req, res) => {
 
 
       if (!admin) {
-      return res.status(401).render("admin/login", {status: "failed", message: "Admin tidak ditemukan"})
+      return res.status(401).render("admin/loginTest", {status: "failed", message: "Admin tidak ditemukan"})
     }
 
 
@@ -48,11 +48,11 @@ const login = async (req, res) => {
       admin.password)
 
     if (!passwordIsValid) {
-      return res.status(401).render("admin/login", {status: "failed", message: "Password salah"})
+      return res.status(401).render("admin/loginTest", {status: "failed", message: "Password salah"})
     }
 
     req.session.userName = userName
-    return res.render("admin/dasboardAdmin",  {user : req.session.userName, firstLogin: true, status: "none"})
+    return res.render("admin/dashboardAdminTest",  {user : req.session.userName, firstLogin: true, status: "none"})
 
   } catch (error) {
     return res.status(500).send({ message: error.message, })
