@@ -61,7 +61,7 @@ const login = async (req, res) => {
 
 const registerUser = async (req, res) => {
   try {
-    const {  name, email, password } = req.body
+    const {  name, email, password, age, address, gender } = req.body
 
     const emailUser = await User.findOne({
       where: {
@@ -76,9 +76,14 @@ const registerUser = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     console.log(req.body)
+    const idUser = Math.floor(Math.random() * (9999 - 1000) + 1000)
     const newUser = await User.create(
       {name, 
         email,
+        idUser: idUser,
+        age, 
+        address,
+         gender,
         password: hash
       })
     res.status(201).render("user/register", {status: "success", message: "Registrasi Berhasil"})

@@ -1,3 +1,4 @@
+const {User} = require('../../models');
 
 const loginAdminPage = async (req, res) => {
   try {
@@ -81,6 +82,28 @@ const logoutAdminPageTest = async (req, res) => {
   }
 }
 
+const userActive = async (req, res) => {
+  try {
+    const users = await User.findAll()
+    res.render("admin/users", {user : req.session.userName, users, status: req.query.status || "none", message: req.query.message || "none",})
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message: error.message,
+    })
+  }
+}
+
+const uploadTrash = async (req, res) => {
+  try {
+    const users = await User.findAll()
+    res.render("admin/trash", {user : req.session.userName, users, status: req.query.status || "none", message: req.query.message || "none",})
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message: error.message,
+    })
+  }
+}
+
 module.exports = {
   loginAdminPage,
   logoutAdminPage,
@@ -89,4 +112,6 @@ module.exports = {
   loginAdminTestPage,
   dashboardAdminPageTest,
   logoutAdminPageTest,
+  userActive,
+  uploadTrash,
 }

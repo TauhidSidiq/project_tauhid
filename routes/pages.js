@@ -15,9 +15,11 @@ router.get('/users/logout', userPageControllers.logoutUserPage)
 // admin pages
 // router.get('/login/admin', AdminPageControllers.loginAdminPage)
 router.get('/admin/login', AdminPageControllers.loginAdminTestPage)
-router.get('/admin/dashboard', admin ,AdminPageControllers.dashboardAdminPage)
-router.get('/admin/dashboardTest', admin ,AdminPageControllers.dashboardAdminPageTest)
-router.get('/admin/register', admin,AdminPageControllers.registerAdminPage)
+// router.get('/admin/dashboard', admin ,AdminPageControllers.dashboardAdminPage)
+router.get('/admin/dashboard', admin ,AdminPageControllers.dashboardAdminPageTest)
+// router.get('/admin/register', admin,AdminPageControllers.registerAdminPage)
+router.get('/admin/members', admin,AdminPageControllers.userActive)
+router.get('/admin/form/trash', admin,AdminPageControllers.uploadTrash)
 router.get('/logout', AdminPageControllers.logoutAdminPageTest)
 
 
