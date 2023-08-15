@@ -10,8 +10,8 @@ const secretKey = process.env.ACCESS_TOKEN_SECRET || "This is a secret key"
 
 dotenv.config()
 const app = express()
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use(session({
   secret: "secretkey",
   resave: false,

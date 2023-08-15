@@ -1,4 +1,6 @@
-const {User} = require('../../models');
+const {User, Trash, Transaction} = require('../../models');
+const { Op } = require('sequelize');
+
 
 const loginAdminPage = async (req, res) => {
   try {
@@ -95,14 +97,64 @@ const userActive = async (req, res) => {
 
 const uploadTrash = async (req, res) => {
   try {
-    const users = await User.findAll()
-    res.render("admin/trash", {user : req.session.userName, users, status: req.query.status || "none", message: req.query.message || "none",})
+    const trashs = await Trash.findAll()
+    res.render("admin/trash", {user : req.session.userName, trashs, status: req.query.status || "none", message: req.query.message || "none",})
   } catch (error) {
     res.status(error.statusCode || 500).json({
       message: error.message,
     })
   }
 }
+
+const transactionPage = async (req, res) => {
+  try {
+    const transactions = await Transaction.findAll(
+      {
+        include: {
+          model: User,
+        },
+      }
+    );
+    // const userIds = transactions.map(transaction => transaction.dataValues.idUser);
+    // console.log(userIds)
+    // const stringUserIDs = userIds.map(id => id.toString());
+    // console.log(stringUserIDs)
+    // // const stringNumber = userIds.toString();
+    // const userPromises = [];
+
+    // for (const userId of stringUserIDs) {
+    //   console.log(userId);
+    //   const users = await User.findAll({
+    //     where: {
+    //       idUser: userId
+    //     },
+    //   });
+    //   userPromises.push(users);
+    // }
+    // const allUsers = await Promise.all(userPromises);
+
+    // console.log(allUsers);
+//     const transactionsWithUsers = transactions.map(transaction => {
+//       const user = users.find(user => user.idUser === transaction.dataValues.idUser);
+//       return {
+//         ...transaction.dataValues,
+//         user: user || null,
+//       };
+//     });
+      console.log(transactions)
+    res.render("admin/transaction", {
+      user: req.session.userName,
+      transactions,
+      status: req.query.status || "none",
+      message: req.query.message || "none",
+    });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message: error.message,
+    });
+  }
+}
+
 
 module.exports = {
   loginAdminPage,
@@ -114,4 +166,5 @@ module.exports = {
   logoutAdminPageTest,
   userActive,
   uploadTrash,
+  transactionPage,
 }
