@@ -11,11 +11,6 @@ module.exports = {
       },
       idUser: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Users",
-          key: "idUser",
-          as: "idUser",
-        },
       },
       trash: {
         type: Sequelize.STRING
