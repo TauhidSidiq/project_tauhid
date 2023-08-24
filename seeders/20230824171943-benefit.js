@@ -24,6 +24,7 @@ module.exports = {
         point: "1500",
         createdAt: new Date(),
         updatedAt: new Date(),
+        
       },
     ]);
   },
