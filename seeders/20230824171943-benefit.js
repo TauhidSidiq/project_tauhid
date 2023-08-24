@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert("Rewards", [
+    await queryInterface.bulkInsert("Benefits", [
       {
         name: "Uang Rp.100.000",
         point: "1000",
@@ -24,7 +24,7 @@ module.exports = {
         point: "1500",
         createdAt: new Date(),
         updatedAt: new Date(),
-        
+
       },
     ]);
   },
