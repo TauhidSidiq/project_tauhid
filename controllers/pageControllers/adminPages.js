@@ -98,7 +98,8 @@ const userActive = async (req, res) => {
 const uploadTrash = async (req, res) => {
   try {
     const trashs = await Trash.findAll()
-    res.render("admin/trash", {user : req.session.userName, trashs, status: req.query.status || "none", message: req.query.message || "none",})
+    const users = await User.findAll()
+    res.render("admin/trash", {user : req.session.userName, users,trashs, status: req.query.status || "none", message: req.query.message || "none",})
   } catch (error) {
     res.status(error.statusCode || 500).json({
       message: error.message,
@@ -115,35 +116,13 @@ const transactionPage = async (req, res) => {
         },
       }
     );
-    // const userIds = transactions.map(transaction => transaction.dataValues.idUser);
-    // console.log(userIds)
-    // const stringUserIDs = userIds.map(id => id.toString());
-    // console.log(stringUserIDs)
-    // // const stringNumber = userIds.toString();
-    // const userPromises = [];
-
-    // for (const userId of stringUserIDs) {
-    //   console.log(userId);
-    //   const users = await User.findAll({
-    //     where: {
-    //       idUser: userId
-    //     },
-    //   });
-    //   userPromises.push(users);
-    // }
-    // const allUsers = await Promise.all(userPromises);
-
-    // console.log(allUsers);
-//     const transactionsWithUsers = transactions.map(transaction => {
-//       const user = users.find(user => user.idUser === transaction.dataValues.idUser);
-//       return {
-//         ...transaction.dataValues,
-//         user: user || null,
-//       };
-//     });
-      console.log(transactions)
+    const userNames = transactions.map(transaction => {
+      // Accessing the name property from the nested User object
+      return transaction.User.name;
+    });
+    console.log(userNames)
     res.render("admin/transaction", {
-      user: req.session.userName,
+      userNames,
       transactions,
       status: req.query.status || "none",
       message: req.query.message || "none",

@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const {Admin, User} = require('../models');
+const {Admin, User, Benefit} = require('../models');
 
 const register = async (req, res) => {
   try {
@@ -117,7 +117,11 @@ const loginUser = async (req, res) => {
     }
 
     req.session.name = user.name
-    return res.render("user/indexUser",  {user : req.session.name, firstLogin: true, status: "none"})
+    req.session.point = user.points
+    // console.log(user.id)
+    req.session.idUser = user.id
+    const benefits = await Benefit.findAll()
+    return res.render("user/indexUser",  {user : req.session.name, points: req.session.point, idUser: req.session.idUser, benefits,firstLogin: true, status: "none"})
 
   } catch (error) {
     return res.status(500).send({ message: error.message, })

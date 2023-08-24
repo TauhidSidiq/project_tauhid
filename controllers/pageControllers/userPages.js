@@ -1,4 +1,4 @@
-// const {Files, FileBmm, FileFkap, FileKeuangan, FilePemasaran, FileProduksi, FileSdm, FileSekretariat, FileSpi, Documents, Departements} = require('../../models');
+const {User, Benefit} = require('../../models');
 
 const dashboardPage = async (req, res) => {
   try {
@@ -41,8 +41,17 @@ const loginUserPage = async (req, res) => {
 }
 
 const dashboardUserPage = async (req, res) => {
+  const benefits = await Benefit.findAll()
+  console.log(req.session.idUser)
+  const idUser = req.session.idUser
+  // console.log(idUser)
+  // const user = await User.findOne({ where: 
+  //   { id: idUser,}, })
+    // console.log(user)
+  const user = await User.findOne({ where: 
+      { id: idUser,}, })
   try {
-    res.render("user/indexUser",  {user : req.session.name, firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+    res.render("user/indexUser",  {user : req.session.name, points: user.points, idUser: req.session.idUser, benefits,firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
   } catch (error) {
     res.status(error.statusCode || 500).json({
       message: error.message,

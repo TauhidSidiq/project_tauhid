@@ -1,4 +1,4 @@
-const { Transaction, Trash } = require('../models');
+const { Transaction, Trash, User } = require('../models');
 const imagekit = require("../middleware/imagekit")
 
 
@@ -36,6 +36,18 @@ const createTransaction = async (req, res) => {
       fileName: `IMG-${Date.now()}.${ext}`,
     })
 
+    const user = await User.findOne({ where: 
+      { id: idUser,}, })
+
+    updatePoints = user.points + totalPoint
+     User.update(
+      {
+        points: updatePoints
+      },
+      {
+        where: { id: idUser, },
+      }
+    )
     const newTransaction = await Transaction.create(
       {idUser,trash, weight ,desc, image: img.url, points: totalPoint
       })
@@ -52,6 +64,32 @@ const createTransaction = async (req, res) => {
   }
 }
 
+async function findtransaction(req, res) {
+  try {
+    const datatransaksi =  await Transaction.findAll(
+      {
+        include: {
+          model: User,
+        },
+      }
+    )
+    res.status(200).json({
+      status: "success",
+      meesage: "success get all whislist destination",
+      data: datatransaksi,
+    })
+
+    const userNames = datatransaksi.map(transaction => {
+      // Accessing the name property from the nested User object
+      return transaction.User.name;
+    });
+    console.log(userNames[0])
+  } catch (error) {
+    return res.status(500).send({ message: error.message, })
+  }
+}
+
 module.exports = {
   createTransaction,
+  findtransaction,
 }
