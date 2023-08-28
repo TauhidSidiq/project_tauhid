@@ -5,6 +5,7 @@ const admin = require("../middleware/admin")
 
 router.post('/api/transaction/add', upload.single("image"), transactionControllers.createTransaction)
 router.get('/api/transaction/find', transactionControllers.findtransaction)
+router.get('/api/transaction/delete/:id', transactionControllers.deleteTransaction)
 
 
 module.exports = router

@@ -50,6 +50,44 @@ const createReward = async (req, res) => {
   }
 }
 
+async function findReward(req, res) {
+  try {
+    const datareward =  await Reward.findAll(
+      {
+        include: {
+          model: User,
+        },
+      }
+    )
+    res.status(200).json({
+      status: "success",
+      meesage: "success get all reward",
+      data: datareward,
+    })
+
+    const userNames = datareward.map(reward => {
+      // Accessing the name property from the nested User object
+      return reward.User.name;
+    });
+    console.log(userNames[0])
+  } catch (error) {
+    return res.status(500).send({ message: error.message, })
+  }
+}
+
+
+const deleteReward = async (req, res) => {
+  try {
+    console.log(req.params.id)
+    await Reward.destroy({ where: { id: req.params.id, }, })
+   res.redirect("/admin/reward/?status=delete&message=Riwayat Berhasil dihapus")
+  } catch (error) {
+    return res.status(500).send({ message: error.message, })
+  }
+}
+
 module.exports= {
-  createReward
+  createReward,
+  findReward,
+  deleteReward,
 }

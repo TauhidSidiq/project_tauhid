@@ -75,7 +75,7 @@ async function findtransaction(req, res) {
     )
     res.status(200).json({
       status: "success",
-      meesage: "success get all whislist destination",
+      meesage: "success get all data transaction",
       data: datatransaksi,
     })
 
@@ -89,7 +89,48 @@ async function findtransaction(req, res) {
   }
 }
 
+const deleteTransaction = async (req, res) => {
+  try {
+    console.log(req.params.id)
+    await Transaction.destroy({ where: { id: req.params.id, }, })
+   res.redirect("/admin/transaction/?status=delete&message=Riwayat Berhasil dihapus")
+  } catch (error) {
+    return res.status(500).send({ message: error.message, })
+  }
+}
+
+async function Search(req, res) {
+  try {
+
+    // const typeOfFlight = req.query.typeOfFlight || "";
+    // const from = req.query.from || "";
+    // const to = req.query.to || "";
+    // const depatureDate = req.query.depatureDate || "";
+   
+    const {
+      name,
+    } = req.body
+    
+    const responseData = await Transaction.findAll(
+      {
+        where: {
+          from: from,
+        },
+      }
+    )
+
+    res.status(200).json({
+      status: "success",
+      data: responseData,
+    })
+    
+  } catch (error) {
+    return res.status(500).send({ message: error.message, })
+  }
+}
+
 module.exports = {
   createTransaction,
   findtransaction,
+  deleteTransaction,
 }

@@ -1,5 +1,6 @@
-const {User, Trash, Transaction} = require('../../models');
+const {User, Trash, Transaction, Reward} = require('../../models');
 const { Op } = require('sequelize');
+const reward = require('../../models/reward');
 
 
 const loginAdminPage = async (req, res) => {
@@ -116,14 +117,29 @@ const transactionPage = async (req, res) => {
         },
       }
     );
-    const userNames = transactions.map(transaction => {
-      // Accessing the name property from the nested User object
-      return transaction.User.name;
-    });
-    console.log(userNames)
     res.render("admin/transaction", {
-      userNames,
       transactions,
+      status: req.query.status || "none",
+      message: req.query.message || "none",
+    });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      message: error.message,
+    });
+  }
+}
+const rewardPage = async (req, res) => {
+  try {
+    const rewards = await Reward.findAll(
+      {
+        include: {
+          model: User,
+        },
+      }
+    );
+    
+    res.render("admin/reward", {
+      rewards,
       status: req.query.status || "none",
       message: req.query.message || "none",
     });
@@ -146,4 +162,5 @@ module.exports = {
   userActive,
   uploadTrash,
   transactionPage,
+  rewardPage,
 }

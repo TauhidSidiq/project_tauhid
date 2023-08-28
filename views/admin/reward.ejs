@@ -33,7 +33,7 @@
             <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
-              Data Transaksi
+              Data Tukar Point
             </h2>
             <div class="mb-3">
               <div class="relative mb-4 flex w-full flex-wrap items-stretch">
@@ -57,22 +57,18 @@
                     >
                       <th class="px-4 py-3">Id Anggota</th>
                       <th class="px-4 py-3">Nama</th>
-                      <th class="px-4 py-3">Jenis Sampah</th>
-                      <th class="px-4 py-3">Berat</th>
-                      <th class="px-4 py-3">Gambar</th>
+                      <th class="px-4 py-3">Tukaran</th>
                       <th class="px-4 py-3">Point</th>
-                      <th class="px-4 py-3">Deskripsi</th>
                       <th class="px-4 py-3">Aksi</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                  <% transactions.forEach((transaction)=> {%>
-
+                  <% rewards.forEach((reward)=> {%>
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        <%= transaction.idUser %>
+                        <%= reward.idUser %>
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
@@ -91,32 +87,19 @@
                               aria-hidden="true"
                             ></div>
                           </div>
-
                           <div>
-
-                              <p class="font-semibold"><%= transaction.User.name %></p>
-
+                            <p class="font-semibold"><%= reward.User.name %></p>
                           </div>
-
                         </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        <%= transaction.trash %>
+                        <%= reward.name %>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        <%= transaction.weight %>
+                        <%= reward.point %>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        <a href="<%= transaction.image %>">Lihat Gambar</a>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <%= transaction.points %>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <%= transaction.desc %>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <a href="/api/transaction/delete/<%- transaction.id %>">
+                        <a href="/api/reward/delete/<%- reward.id %>">
                           <button
               class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red"
             >
@@ -125,7 +108,6 @@
                         </a>
                       </td>
                     </tr>
-
                     <% }) %>
                   </tbody>
                 </table>

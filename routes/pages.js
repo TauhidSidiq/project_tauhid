@@ -21,6 +21,7 @@ router.get('/admin/dashboard', admin ,AdminPageControllers.dashboardAdminPageTes
 router.get('/admin/members', admin,AdminPageControllers.userActive)
 router.get('/admin/form/trash', admin,AdminPageControllers.uploadTrash)
 router.get('/admin/transaction/', admin,AdminPageControllers.transactionPage)
+router.get('/admin/reward/', admin,AdminPageControllers.rewardPage)
 router.get('/logout', AdminPageControllers.logoutAdminPageTest)
 
 
